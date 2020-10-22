@@ -14,6 +14,8 @@ import javax.validation.constraints.Pattern;
 public class EducationRequestDTO {
 
     @NotNull
+    //TODO GTB-完成度: - EducationRequestDTO.java:17 这一句导致无法创建 education
+    //TODO GTB-知识点: - 校验年份格式的实现有问题
     @Pattern(regexp = "^[0-9]{4}$", message = "年份不合法")
     private long year;
 

@@ -33,6 +33,7 @@ public class UserService {
     }
 
     public void createUser(User user) {
+        //TODO GTB-综合: - UserService.java:36 userId 是刚刚在外面自行生成，这里判断是否存在的意义是什么？防止并发时不同的请求生成了相同的 id 吗？还是什么原因？否则，这里用 id 进行判重，不是很有意义。
         if (userRepository.findUserById(user.getId()) != null) {
             throw new InvalidUserException("用户已存在");
         }

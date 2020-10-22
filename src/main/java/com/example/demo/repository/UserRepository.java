@@ -12,6 +12,7 @@ public class UserRepository {
     private final List<User> userList = DataProvider.userList;
 
     public User findUserById(int userId) {
+        //TODO GTB-工程实践: - UserRepository.java:15 可以直接返回 Optional，调用方也会更好写，可以尝试改进一下
         return userList.stream()
                 .filter(user -> user.getId() == userId)
                 .findFirst()

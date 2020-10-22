@@ -20,6 +20,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    //TODO GTB-知识点: - 如果多个方法的 path 有一样的前缀，可以提到 class level 去统一设置
     @GetMapping("/users/{userId}")
     public User findUserById (@PathVariable int userId) {
         return userService.findUserById(userId);

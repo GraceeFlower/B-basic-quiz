@@ -14,6 +14,7 @@ public class EducationRepository {
 
     public List<Education> findAllByUserId(int userId) {
         return educationList.stream()
+                //TODO GTB-工程实践: - 尽量使用 equals()
                 .filter(education -> education.getUserId() == userId)
                 .collect(Collectors.toList());
     }

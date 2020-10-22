@@ -21,6 +21,7 @@ public class EducationController {
         this.educationService = educationService;
     }
 
+    //TODO GTB-知识点: - 如果多个方法的 path 一样，可以提到 class level 去统一设置
     @GetMapping("/users/{userId}/educations")
     public List<Education> findAllByUserId(@PathVariable int userId) {
         return educationService.findAllByUserId(userId);
