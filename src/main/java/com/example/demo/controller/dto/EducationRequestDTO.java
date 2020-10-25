@@ -14,7 +14,6 @@ import javax.validation.constraints.Pattern;
 public class EducationRequestDTO {
 
     @NotNull
-    @Pattern(regexp = "^[0-9]{4}$", message = "年份不合法")
     private long year;
 
     @NotNull
