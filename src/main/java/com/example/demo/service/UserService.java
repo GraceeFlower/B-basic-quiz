@@ -1,41 +1,39 @@
 package com.example.demo.service;
 
+import com.example.demo.controller.dto.UserRequestDTO;
 import com.example.demo.exception.InvalidUserException;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
+    private final AtomicLong userIdSeq = new AtomicLong();
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public User findUserById(int userId) {
-        User user = userRepository.findUserById(userId);
-        if (user == null) {
-            throw new InvalidUserException("用户不存在");
-        }
-        return user;
+    public User findUserById(Long userId) {
+        return userRepository
+                .findById(userId)
+                .orElseThrow(() -> new InvalidUserException("User Not Found!"));
     }
 
-    public int getNewUserId() {
-        return findAllUsers().size() + 1;
-    }
+    public User createUser(UserRequestDTO userRequestDTO) {
+        User user = new User(
+                userIdSeq.incrementAndGet(),
+                userRequestDTO.getName(),
+                userRequestDTO.getAge(),
+                userRequestDTO.getAvatar(),
+                userRequestDTO.getDescription()
+        );
 
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
-    }
-
-    public void createUser(User user) {
-        if (userRepository.findUserById(user.getId()) != null) {
-            throw new InvalidUserException("用户已存在");
-        }
         userRepository.save(user);
+        return user;
     }
 }

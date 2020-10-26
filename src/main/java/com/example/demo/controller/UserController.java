@@ -21,15 +21,13 @@ public class UserController {
     }
 
     @GetMapping("/users/{userId}")
-    public User findUserById (@PathVariable int userId) {
+    public User findUserById (@PathVariable Long userId) {
         return userService.findUserById(userId);
     }
 
     @PostMapping("/users")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createUser(@RequestBody @Valid UserRequestDTO userRequestDTO) {
-        int userId = userService.getNewUserId();
-        userService.createUser(new User(userId, userRequestDTO.getName(), userRequestDTO.getAge(),
-                userRequestDTO.getAvatar(), userRequestDTO.getDescription()));
+    public User createUser(@RequestBody @Valid UserRequestDTO userRequestDTO) {
+        return userService.createUser(userRequestDTO);
     }
 }

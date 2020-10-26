@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping("/users/{userId}/educations")
 @Validated
 @CrossOrigin("http://localhost:1234")
 public class EducationController {
@@ -21,16 +22,15 @@ public class EducationController {
         this.educationService = educationService;
     }
 
-    @GetMapping("/users/{userId}/educations")
-    public List<Education> findAllByUserId(@PathVariable int userId) {
+    @GetMapping
+    public List<Education> findAllByUserId(@PathVariable Long userId) {
         return educationService.findAllByUserId(userId);
     }
 
-    @PostMapping("/users/{userId}/educations")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createEducation(@PathVariable int userId,
+    public Education createEducation(@PathVariable Long userId,
                                 @RequestBody @Valid EducationRequestDTO educationRequestDTO) {
-        educationService.createEducation(new Education(userId, educationRequestDTO.getYear(),
-                educationRequestDTO.getTitle(), educationRequestDTO.getDescription()));
+        return educationService.createEducation(userId, educationRequestDTO);
     }
 }

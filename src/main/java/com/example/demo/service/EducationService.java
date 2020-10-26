@@ -1,25 +1,43 @@
 package com.example.demo.service;
 
+import com.example.demo.controller.dto.EducationRequestDTO;
+import com.example.demo.exception.InvalidUserException;
 import com.example.demo.model.Education;
+import com.example.demo.model.User;
 import com.example.demo.repository.EducationRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class EducationService {
 
     private final EducationRepository educationRepository;
+    private final UserService userService;
+    private final AtomicLong educationIdSeq = new AtomicLong();
 
-    public EducationService(EducationRepository educationRepository) {
+    public EducationService(EducationRepository educationRepository, UserService userService) {
         this.educationRepository = educationRepository;
+        this.userService = userService;
     }
 
-    public List<Education> findAllByUserId(int userId) {
-        return educationRepository.findAllByUserId(userId);
+    public List<Education> findAllByUserId(Long userId) {
+        return educationRepository.findByUserId(userId);
     }
 
-    public void createEducation(Education education) {
+    public Education createEducation(Long userId, EducationRequestDTO educationRequestDTO) {
+        User user = userService.findUserById(userId);
+
+        if(user == null) throw new InvalidUserException("User Not Found!");
+        Education education = new Education(
+                educationIdSeq.incrementAndGet(),
+                educationRequestDTO.getYear(),
+                educationRequestDTO.getTitle(),
+                educationRequestDTO.getDescription(),
+                user
+        );
         educationRepository.save(education);
+        return education;
     }
 }
