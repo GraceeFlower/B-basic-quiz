@@ -33,7 +33,6 @@ public class UserService {
                 userRequestDTO.getDescription()
         );
 
-        userRepository.save(user);
-        return user;
+        return userRepository.save(user);
     }
 }

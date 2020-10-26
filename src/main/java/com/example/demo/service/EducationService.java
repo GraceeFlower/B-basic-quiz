@@ -23,13 +23,16 @@ public class EducationService {
     }
 
     public List<Education> findAllByUserId(Long userId) {
+        userService.findUserById(userId);
         return educationRepository.findByUserId(userId);
     }
 
     public Education createEducation(Long userId, EducationRequestDTO educationRequestDTO) {
         User user = userService.findUserById(userId);
 
-        if(user == null) throw new InvalidUserException("User Not Found!");
+        if(user == null) {
+            throw new InvalidUserException("User Not Found!");
+        }
         Education education = new Education(
                 educationIdSeq.incrementAndGet(),
                 educationRequestDTO.getYear(),
@@ -37,7 +40,6 @@ public class EducationService {
                 educationRequestDTO.getDescription(),
                 user
         );
-        educationRepository.save(education);
-        return education;
+        return educationRepository.save(education);
     }
 }

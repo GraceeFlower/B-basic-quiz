@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.controller.dto.EducationRequestDTO;
+import com.example.demo.controller.dto.EducationResponseDTO;
+import com.example.demo.controller.dto.EducationsResponseDTO;
 import com.example.demo.model.Education;
 import com.example.demo.service.EducationService;
 import org.springframework.http.HttpStatus;
@@ -23,14 +25,17 @@ public class EducationController {
     }
 
     @GetMapping
-    public List<Education> findAllByUserId(@PathVariable Long userId) {
-        return educationService.findAllByUserId(userId);
+    public List<EducationResponseDTO> findAllByUserId(@PathVariable Long userId) {
+        List<Education> educations = educationService.findAllByUserId(userId);
+        return new EducationsResponseDTO().toList(educations);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Education createEducation(@PathVariable Long userId,
+    public EducationResponseDTO createEducation(@PathVariable Long userId,
                                 @RequestBody @Valid EducationRequestDTO educationRequestDTO) {
-        return educationService.createEducation(userId, educationRequestDTO);
+        Education education = educationService.createEducation(userId, educationRequestDTO);
+        return new EducationResponseDTO(education);
+
     }
 }

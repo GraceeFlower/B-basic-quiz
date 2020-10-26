@@ -17,7 +17,7 @@ public class Education {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long educationId;
-    private long year;
+    private Long year;
     private String title;
     private String description;
     @ManyToOne

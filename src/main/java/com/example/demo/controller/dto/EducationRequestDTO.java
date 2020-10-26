@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 public class EducationRequestDTO {
 
     @NotNull
-    private long year;
+    private Long year;
 
     @NotNull
     @Length(min = 1, max = 256, message = "标题不合法")

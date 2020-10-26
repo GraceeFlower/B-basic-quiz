@@ -1,17 +1,17 @@
 package com.example.demo.controller.dto;
 
 import com.example.demo.model.Education;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class EducationsResponseDTO {
 
-    private List<EducationResponseDTO> educationResponseList;
-
+    public List<EducationResponseDTO> toList(List<Education> educations) {
+        return educations.stream()
+                .map(EducationResponseDTO::new)
+                .collect(Collectors.toList());
+    }
 }

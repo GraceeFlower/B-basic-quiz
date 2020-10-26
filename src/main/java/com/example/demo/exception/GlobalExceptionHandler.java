@@ -16,9 +16,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(InvalidUserException.class)
     public ResponseEntity<ErrorResult> handle(InvalidUserException ex) {
-        ErrorResult errorResult = new ErrorResult(new Date().toString(), HttpStatus.BAD_REQUEST.value(),
-                HttpStatus.BAD_REQUEST.toString().split(" ")[1], ex.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResult);
+        ErrorResult errorResult = new ErrorResult(new Date().toString(), HttpStatus.NOT_FOUND.value(),
+                HttpStatus.NOT_FOUND.toString().split(" ")[1], ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResult);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
