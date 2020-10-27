@@ -1,6 +1,5 @@
 package com.example.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,5 +20,6 @@ public class Education {
     private String title;
     private String description;
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 }

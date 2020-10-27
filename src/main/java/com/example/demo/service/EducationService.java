@@ -24,7 +24,7 @@ public class EducationService {
 
     public List<Education> findAllByUserId(Long userId) {
         userService.findUserById(userId);
-        return educationRepository.findByUserId(userId);
+        return educationRepository.findAllByUserId(userId);
     }
 
     public Education createEducation(Long userId, EducationRequestDTO educationRequestDTO) {
