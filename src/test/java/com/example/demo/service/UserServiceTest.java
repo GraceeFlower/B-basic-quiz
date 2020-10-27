@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.controller.dto.UserRequestDTO;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.exception.InvalidUserException;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -38,7 +40,23 @@ public class UserServiceTest {
     }
 
     @Test
+    public void should_create_a_new_user() {
+        when(userRepository.save(user)).thenReturn(user);
+
+        UserRequestDTO userRequestDTO = UserRequestDTO.builder()
+                .age(user.getAge())
+                .name(user.getName())
+                .avatar(user.getAvatar())
+                .description(user.getDescription())
+                .build();
+        User newUser = userService.createUser(userRequestDTO);
+
+        assertThat(newUser).isEqualTo(user);
+    }
+
+    @Test
     public void should_return_user_when_userId_exists() {
+        doNothing().when("a");
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
         User foundUser = userService.findUserById(1L);

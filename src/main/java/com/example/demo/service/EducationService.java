@@ -30,9 +30,6 @@ public class EducationService {
     public Education createEducation(Long userId, EducationRequestDTO educationRequestDTO) {
         User user = userService.findUserById(userId);
 
-        if(user == null) {
-            throw new InvalidUserException("User Not Found!");
-        }
         Education education = new Education(
                 educationIdSeq.incrementAndGet(),
                 educationRequestDTO.getYear(),
