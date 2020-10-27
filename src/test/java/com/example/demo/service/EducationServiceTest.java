@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-
 import com.example.demo.controller.dto.EducationRequestDTO;
 import com.example.demo.model.Education;
 import com.example.demo.model.User;
@@ -29,8 +28,10 @@ public class EducationServiceTest {
 
     @MockBean
     private UserService userService;
+
     @Mock
     private EducationRepository educationRepository;
+
     @Mock
     private UserRepository userRepository;
 
@@ -58,11 +59,12 @@ public class EducationServiceTest {
                 .year(2001L)
                 .user(firstUser)
                 .build();
-
     }
+
     @Test
     public void should_return_user_educations_when_user_exists() {
         when(educationRepository.findAllByUserId(1L)).thenReturn(Collections.singletonList(education));
+
         List<Education> educationList = educationRepository.findAllByUserId(1L);
 
         assertThat(educationList).isEqualTo(Collections.singletonList(education));
@@ -89,6 +91,7 @@ public class EducationServiceTest {
                 .build();
 
         when(educationRepository.save(education)).thenReturn(education);
+
         Education newEducation = educationService.createEducation(1L,educationRequestDTO);
 
         assertThat(newEducation).isEqualTo(education);

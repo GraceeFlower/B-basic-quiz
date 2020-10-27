@@ -56,7 +56,6 @@ public class UserServiceTest {
 
     @Test
     public void should_return_user_when_userId_exists() {
-        doNothing().when("a");
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
         User foundUser = userService.findUserById(1L);

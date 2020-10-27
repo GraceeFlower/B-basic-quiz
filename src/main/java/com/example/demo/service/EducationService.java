@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
 import com.example.demo.controller.dto.EducationRequestDTO;
-import com.example.demo.exception.InvalidUserException;
 import com.example.demo.model.Education;
 import com.example.demo.model.User;
 import com.example.demo.repository.EducationRepository;
