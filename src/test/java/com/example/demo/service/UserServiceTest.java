@@ -38,7 +38,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void should_return_user() {
+    public void should_return_user_when_userId_exists() {
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
         User foundUser = userService.findUserById(1L);
@@ -47,7 +47,7 @@ public class UserServiceTest {
     }
 
     @Test
-    void should_throw_exception() {
+    void should_throw_exception_when_user_not_exist() {
         when(userRepository.findById(2L)).thenReturn(Optional.empty());
 
         InvalidUserException thrownException = assertThrows(InvalidUserException.class, () -> {
