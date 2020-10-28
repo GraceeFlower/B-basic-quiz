@@ -1,6 +1,7 @@
 package com.example.demo.controller.dto;
 
 import com.example.demo.model.Education;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;

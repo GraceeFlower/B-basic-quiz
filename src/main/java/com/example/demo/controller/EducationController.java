@@ -36,6 +36,5 @@ public class EducationController {
                                 @RequestBody @Valid EducationRequestDTO educationRequestDTO) {
         Education education = educationService.createEducation(userId, educationRequestDTO);
         return new EducationResponseDTO(education);
-
     }
 }

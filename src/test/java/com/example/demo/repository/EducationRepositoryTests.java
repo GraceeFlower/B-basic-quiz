@@ -22,32 +22,30 @@ public class EducationRepositoryTests {
     @Autowired
     private TestEntityManager entityManager;
 
-//    @Test
-//    void should_return_education_when_id_exists() {
-//        User firstUser = User.builder()
-//                .name("Panda")
-//                .age(24L)
-//                .avatar("http://...")
-//                .description("A good guy.")
-//                .build();
-//
-//        entityManager.persistAndFlush(Education.builder()
-//                .educationId(1L)
-//                .year(1990L)
-//                .title("education")
-//                .description("description")
-//                .user(firstUser)
-//                .build());
-//
-//        List<Education> found = educationRepository.findAllByUserId(1L);
-//
-//        assertThat(found.size()).isNotZero();
-//        assertThat(found.get(0)).isEqualTo(Education.builder()
-//                .educationId(1L)
-//                .year(1990L)
-//                .title("education")
-//                .description("description")
-//                .user(firstUser)
-//                .build());
-//    }
+    @Test
+    void should_return_educations_when_user_exists() {
+        User user = User.builder()
+                .id(1L)
+                .name("grace")
+                .age(18L)
+                .avatar("http://grace.com")
+                .description("description")
+                .build();
+
+        Education education = Education.builder()
+                .educationId(1L)
+                .year(2001L)
+                .title("education")
+                .description("description")
+                .user(user)
+                .build();
+
+//        entityManager.persistAndFlush(user);
+        entityManager.persistAndFlush(education);
+
+        List<Education> educations = educationRepository.findAllByUserId(1L);
+
+        assertThat(educations.size()).isNotZero();
+        assertThat(educations.get(0)).isEqualTo(education);
+    }
 }

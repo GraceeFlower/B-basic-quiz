@@ -61,7 +61,7 @@ public class UserControllerTests {
     }
 
     @Test
-    public void should_return_user_by_id_with_jsonPath() throws Exception {
+    public void should_return_user_when_user_exists() throws Exception {
         when(userService.findUserById(1L)).thenReturn(firstUser);
 
         mockMvc.perform(get("/users/{id}", 1L))
